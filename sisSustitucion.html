@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>CriptoMonkas</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+        <script>
+const random = (min, max) => {return Math.floor(Math.random() * (max - min) + min)};
+const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+substitution = {};
+
+substitution.enc = (text, key) => {
+    var encrypted = '';
+    for (let i = 0; i < text.length; i++) {
+        var chr = text[i];
+        if (chr != ' ') {
+            var newpos = abc.indexOf(chr);
+            encrypted += key[newpos];
+        } else {
+            encrypted += ' ';
+        }
+    }
+    return encrypted
+}
+
+substitution.dec = (text, key) => {
+    var decrypted = '';
+    for (let i = 0; i < text.length; i++) {
+        var chr = text[i];
+        if (chr != ' ') {
+            console.log(key)
+            var newpos = key.indexOf(chr);
+            decrypted += abc[newpos];
+        } else {
+            decrypted += ' ';
+        }
+    }
+    return decrypted
+}
+
+substitution.getkey = () => {
+    const arrabc = abc.split('');
+    var key = '';
+    while(arrabc.length > 0){
+        r = random(0, arrabc.length);
+        key += arrabc[r];
+        arrabc.splice(r, 1);
+    }
+
+    return key;
+}
+
+const handleCypher = (method) => {
+    if(method == 'encrypt'){
+        const text = document.getElementById('textEncrypt').value;
+        let key = document.getElementById('keyEncrypt');
+
+        if(key.value == ''){
+            key.placeholder = substitution.getkey();
+            key = key.placeholder;
+        } else {
+            key = key.value;
+        }
+        
+        document.getElementById('outputEncrypt').innerHTML = substitution.enc(text, key);
+
+    } else if(method == 'decrypt'){
+        const text = document.getElementById('textDecrypt').value;
+        let key = document.getElementById('keyDecrypt').value;
+        document.getElementById('outputDecrypt').innerHTML = substitution.dec(text, key);
+    }
+
+}
+
+        </script>
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+            <header id="header">
+                <h1 id="logo"><a href="index.html">CriptoMonkas!</a></h1>
+                <nav id="nav">
+                  <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li>
+                      <a href="#">Crpyto Sistems</a>
+                      <ul>
+                        <li><a href="sisShift.html">Shift</a></li>
+                        <li><a href="sisAfin.html">Affine</a></li>
+                        <li><a href="sisPermutacion.html">Permutation</a></li>
+                        <li><a href="sisSustitucion.html">Sustitution</a></li>
+                        <li><a href="sisHill.html">Hill</a></li>
+                        <li><a href="sisVigenere.html">Vigenere</a></li>
+                        <li>
+                          <a href="#">Analysis</a>
+                          <ul>
+                            <li><a href="AnShift.html">Shift analysis</a></li>
+                            <li><a href="AnAfin.html">Affine analysis</a></li>
+                            <li><a href="AnPermutacion.html">Permutation analysis</a></li>
+                            <li><a href="AnSustitucion.html">Sustitution analysis</a></li>
+                            <li><a href="AnHill.html">Hill analysis</a></li>
+                            <li><a href="AnVigenere.html">Vigenere analysis</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a href="aboutUs.html">About us</a></li>
+                  </ul>
+                </nav>
+              </header>
+
+			<!-- Main -->
+				<div id="main" class="wrapper style1">
+					<div class="container">
+						<header class="major">
+							<h2>Shift criptographic system</h2>
+							<p>This cypher uses a table which tells which character should be exchanged by which character
+                                on the process. Almost every cypher that only deals with singular characters is a
+                                particular case of this system, since every way to shuffle characters is valid here.
+                            </p>
+						</header>
+
+						<!-- Content -->
+						
+
+<div class="container">
+    <!--  -->
+    <div class="row">
+        <div class="wrapper style1">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Encrypt</h3>
+                <div class="row">
+                    <form id="myForm">
+                        <div class="row gtr-uniform gtr-50">
+                            <div class="col-6 col-12-xsmall">
+                                <input type="text" name="Text to encrypt" id="textEncrypt" value="" placeholder="Text to encrypt" style="text-transform:uppercase" />
+                            </div>
+                            <div class="col-6 col-12-xsmall">
+                                <input type="text" name="key" id="keyEncrypt" value="" placeholder="Example: ZXYVUTSRQPONMLKJIHGFEDCBA"/>
+                            </div>
+                                <span> Please introduce a sequence of characters including
+                                    all the characters from the alphabet. If you don't, the system
+                                    will generate one sequence randomly.
+                            </div>
+                        </div>
+                        <div class="text-center">
+
+                            <button id="submitButtonEncrypt" type="button"
+                                    class="button primary" onclick="handleCypher('encrypt')">Encrypt                                   
+                            </button>
+
+                            <button id="ResetButton" type="reset"
+                                    class="button primary">Reset                                 
+                            </button>
+                        </div>
+                    </form>
+                    <textarea rows='4' type="text" id="outputEncrypt" disabled></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="wrapper style1">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Decrypt</h3>
+                    <div class="row">
+                        <form id="myForm">
+                            <div class="row gtr-uniform gtr-50">
+                                <div class="col-6 col-12-xsmall">
+                                    <input type="text" name="Text to encrypt" id="textDecrypt" value="" placeholder="Text to decrypt" style="text-transform:uppercase" />
+                                </div>
+                                <div class="col-6 col-12-xsmall">
+                                    <input type="text" name="key" id="keyDecrypt" value="" placeholder="KEY"/>
+                                </div>
+                                    <span> Please introduce some sequence of characters. </span>
+                                </div>
+                            </div>
+                            <div class="text-center">
+    
+                                <button id="submitButtonEncrypt" type="button"
+                                        class="button primary" onclick="handleCypher('decrypt')">Decrypt                                   
+                                </button>
+    
+                                <button id="ResetButton" type="reset"
+                                        class="button primary">Reset                                 
+                                </button>
+                            </div>
+                        </form>
+                        <textarea rows='4' type="text" id="outputDecrypt" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+
+			<!-- Footer -->
+				<footer id="footer">
+                    <ul class="copyright">
+                      <li>&copy; CriptoMonkas. All rights reserved.</li>
+                      <li>Design: <a href="http://html5up.net">HTML5 UP,</a></li>
+                      <li>&copy;  Deyvi Ardila & Samuel Alvarez.</li>
+                    </ul>
+                  </footer>
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Affine</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+            <header id="header">
+                <h1 id="logo"><a href="index.html">CriptoMonkas!</a></h1>
+                <nav id="nav">
+                  <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li>
+                      <a href="#">Crpyto Sistems</a>
+                      <ul>
+                        <li><a href="sisShift.html">Shift</a></li>
+                        <li><a href="sisAfin.html">Affine</a></li>
+                        <li><a href="sisPermutacion.html">Permutation</a></li>
+                        <li><a href="sisSustitucion.html">Sustitution</a></li>
+                        <li><a href="sisHill.html">Hill</a></li>
+                        <li><a href="sisVigenere.html">Vigenere</a></li>
+                        <li>
+                          <a href="#">Analysis</a>
+                          <ul>
+                            <li><a href="AnShift.html">Shift analysis</a></li>
+                            <li><a href="AnAfin.html">Affine analysis</a></li>
+                            <li><a href="AnPermutacion.html">Permutation analysis</a></li>
+                            <li><a href="AnSustitucion.html">Sustitution analysis</a></li>
+                            <li><a href="AnHill.html">Hill analysis</a></li>
+                            <li><a href="AnVigenere.html">Vigenere analysis</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a href="aboutUs.html">About us</a></li>
+                  </ul>
+                </nav>
+              </header>
+
+			<!-- Main -->
+				<div id="main" class="wrapper style1">
+					<div class="container">
+						<header class="major">
+							<h2>Sistema criptografico afín</h2>
+							<p>Ipsum dolor feugiat aliquam tempus sed magna lorem consequat accumsan</p>
+						</header>
+
+						<!-- Content -->
+						
+
+<div class="container">
+    <div class="row">
+        <h1 class="mt-3 text-center">Displacement Cipher</h1>
+    </div>
+    <div class="row">
+        <div class="col card container mt-3">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Encrypt</h3>
+                <div class="row">
+                    <form id="myForm">
+                        <div class="mb-3">
+                            <label for="inputTextEncrypt" class="form-label">Text</label>
+                            <input type="text" class="form-control" id="inputTextEncrypt" aria-describedby="textHelp"
+                                   style="text-transform:uppercase">
+                            <div id="textHelp" class="form-text">Please introduce some text to encrypt.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputKeyEncrypt" class="form-label">Key</label>
+                            <input type="number" class="form-control" id="inputKeyEncrypt" aria-describedby="keyHelp">
+                            <div id="keyHelp" class="form-text">Please introduce some key in <span
+                                    class="math inline">ℤ<sub>26</sub></span>. If you don't, the system will
+                                automatically generate one.
+                            </div>
+                        </div>
+                        <div class="text-center">
+
+                            <button id="submitButtonEncrypt" type="button"
+                                    class="btn btn-primary justify-content-center">Encrypt
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div id="encryptionResultsDiv" class="row mt-5" style="display: none;">
+                    <hr>
+                    <h4 class="card-subtitle mt-2 mb-4 text-center">Results</h4>
+                    <p><b>Encryption: </b><span id="cardEncryptionText"></span></p>
+                    <p><b>Key Used: </b><span id="cardEncryptionKey"></span></p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col card container mt-3">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-4">Decrypt</h3>
+                <div class="row">
+                    <form id="myForm">
+                        <div class="mb-3">
+                            <label for="inputTextDecrypt" class="form-label">Text</label>
+                            <input type="text" class="form-control" id="inputTextDecrypt" aria-describedby="textHelp"
+                                   style="text-transform:uppercase">
+                            <div id="textHelp" class="form-text">Please introduce the text to decrypt.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputKeyDecrypt" class="form-label">Key</label>
+                            <input type="number" class="form-control" id="inputKeyDecrypt" aria-describedby="keyHelp">
+                            <div id="keyHelp" class="form-text">Please introduce the key.</div>
+                        </div>
+                        <div class="text-center">
+
+                            <button id="submitButtonDecrypt" type="button"
+                                    class="btn btn-primary justify-content-center">Decrypt
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div id="decryptionResultsDiv" class="row mt-5" style="display: none;">
+                    <hr>
+                    <h4 class="card-subtitle mt-2 mb-4 text-center">Results</h4>
+                    <p><b>Decryption: </b><span id="cardDecryptionText"></span></p>
+                    <p><b>Key Used: </b><span id="cardDecryptionKey"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+						<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+						<li><a href="#" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
