@@ -96,9 +96,6 @@ function decryptAffine(cipherText, multiply, shift) {
     }
     return text;
 }
-
-// modGreater finds the positive modulus v = (value-lowerBound)%mod
-// The return value v satisfies 0<=v<mod
 function modGreater(value, lowerBound, mod) {
     var v = (value-lowerBound)%mod;
     while(v<0) {
@@ -110,7 +107,6 @@ function modGreater(value, lowerBound, mod) {
     return v;
 }
 
-// myGCD(a,b) returns the positive greatest common divisor of two integers a and b
 function myGCD(a,b) {
     a = Math.abs(a);
     b = Math.abs(b);
@@ -123,8 +119,6 @@ function myGCD(a,b) {
     return myGCD(a,b%a);
 }
 
-// modPower finds the remainder when base^expo is divided by mod
-// The return value v satisfies 0<=v<mod
 function modPower(base, expo, mod) {
     var e = 1;
     var p = base;
@@ -146,10 +140,6 @@ function modPower(base, expo, mod) {
     return t;
 }
 
-// factorize finds the prime factorization of an integer
-// The return value [p,e] is a 2D arrayy
-// The first element is the prime factors
-// The second element is the corresponding exponents.
 function factorize(n) {
     var i = 2;
     primes = [];
@@ -181,12 +171,6 @@ function totient(n) {
     });
     return n;
 }
-// es que encriptando da que con a = 3, b = 2 la letra A la manda a la letra G (3 * 1 + 2) cuando en lugar deberia mandarla a la letra C (3 * 0 + 2)
-
-// Aunque esta bastante pro que pueda manejar minusculas y mayusculas lito xd
-// por ejemplo si deja el 1 en multiply siempre funciona xd  voy a hacerle al vigenere ya vengo 
-
-
 function modInv(a, mod) {
     if(myGCD(a,mod)!= 1) {
         return -1;
