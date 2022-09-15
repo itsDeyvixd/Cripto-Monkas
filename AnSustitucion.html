@@ -7,6 +7,43 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+        <script>
+            const random = (min, max) => {return Math.floor(Math.random() * (max - min) + min)};
+            const abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const frequencies = {'E': 12.02, 'T': 9.1, 'A': 8.12, 'O': 7.68, 'I': 7.31, 'N':6.95,
+        'S': 6.28, 'R':6.02, 'H': 5.92, 'D': 4.32, 'L': 3.98, 'U': 2.88, 'C': 2.71, 'M': 2.61,
+        'F': 2.3, 'Y': 2.11, 'W': 2.09, 'G': 2.03, 'P': 1.82, 'B': 1.49, 'V': 1.11, 'K': 0.69,
+        'X': 0.17, 'Q': 0.11, 'J': 0.10, 'Z': 0.07};
+
+            const getfrequencies = (text) => {
+                text.toUpperCase();
+                const relativefrequencies = {};
+                for (let i = 0; i < abc.length; i++) {
+                    relativefrequencies[abc[i]] = 0;
+                }
+                
+                for (let i = 0; i < text.length; i++) {
+                    const chr = text[i];
+                    if(abc.indexOf(chr) < 0){
+                        continue
+                    }
+                    relativefrequencies[chr] += 1;
+                }
+
+                for (let i = 0; i < abc.length; i++) {
+                    relativefrequencies[abc[i]] /= text.length;
+                }
+
+                return relativefrequencies;
+            }
+
+            const handleCypher = () => {
+                const text = document.getElementById("textDecrypt").value;
+                document.getElementById("decryptionResultsDiv").style = "";
+                document.getElementById("cardDecryptionText").innerText = getfrequencies(text);
+                document.getElementById("cardDecryptionKey").innerText = "These are the usual frequencies on the english alphabet:\n" + frequencies;
+            }
+        </script>
 	</head>
 	<body class="is-preload">
 		<div id="page-wrapper">
@@ -48,8 +85,11 @@
 				<div id="main" class="wrapper style1">
 					<div class="container">
 						<header class="major">
-							<h2>Sistema criptografico afín</h2>
-							<p>Ipsum dolor feugiat aliquam tempus sed magna lorem consequat accumsan</p>
+							<h2>Substitution cryptographic system</h2>
+							<p>One big flaw with any monoalphabetic cypher is the fact
+                                that the frequence of each letter reveals a lot of information
+                                about the original text.
+                            </p>
 						</header>
 
 						<!-- Content -->
@@ -60,42 +100,6 @@
         <h1 class="mt-3 text-center">Displacement Cipher</h1>
     </div>
     <div class="row">
-        <div class="col card container mt-3">
-            <div class="card-body">
-                <h3 class="card-title text-center mb-4">Encrypt</h3>
-                <div class="row">
-                    <form id="myForm">
-                        <div class="mb-3">
-                            <label for="inputTextEncrypt" class="form-label">Text</label>
-                            <input type="text" class="form-control" id="inputTextEncrypt" aria-describedby="textHelp"
-                                   style="text-transform:uppercase">
-                            <div id="textHelp" class="form-text">Please introduce some text to encrypt.</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="inputKeyEncrypt" class="form-label">Key</label>
-                            <input type="number" class="form-control" id="inputKeyEncrypt" aria-describedby="keyHelp">
-                            <div id="keyHelp" class="form-text">Please introduce some key in <span
-                                    class="math inline">ℤ<sub>26</sub></span>. If you don't, the system will
-                                automatically generate one.
-                            </div>
-                        </div>
-                        <div class="text-center">
-
-                            <button id="submitButtonEncrypt" type="button"
-                                    class="btn btn-primary justify-content-center">Encrypt
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <div id="encryptionResultsDiv" class="row mt-5" style="display: none;">
-                    <hr>
-                    <h4 class="card-subtitle mt-2 mb-4 text-center">Results</h4>
-                    <p><b>Encryption: </b><span id="cardEncryptionText"></span></p>
-                    <p><b>Key Used: </b><span id="cardEncryptionKey"></span></p>
-                </div>
-            </div>
-        </div>
-
 
         <div class="col card container mt-3">
             <div class="card-body">
@@ -104,19 +108,14 @@
                     <form id="myForm">
                         <div class="mb-3">
                             <label for="inputTextDecrypt" class="form-label">Text</label>
-                            <input type="text" class="form-control" id="inputTextDecrypt" aria-describedby="textHelp"
+                            <input type="textarea" row="4" class="form-control" id="textDecrypt" aria-describedby="textHelp"
                                    style="text-transform:uppercase">
-                            <div id="textHelp" class="form-text">Please introduce the text to decrypt.</div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="inputKeyDecrypt" class="form-label">Key</label>
-                            <input type="number" class="form-control" id="inputKeyDecrypt" aria-describedby="keyHelp">
-                            <div id="keyHelp" class="form-text">Please introduce the key.</div>
+                            <div id="textHelp" class="form-text">Please introduce the text to analyce it's frequencies.</div>
                         </div>
                         <div class="text-center">
 
                             <button id="submitButtonDecrypt" type="button"
-                                    class="btn btn-primary justify-content-center">Decrypt
+                                    class="btn btn-primary justify-content-center" onclick="handleCypher()">Decrypt
                             </button>
                         </div>
                     </form>

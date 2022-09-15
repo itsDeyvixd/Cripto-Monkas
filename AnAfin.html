@@ -202,7 +202,12 @@
                 }
             }
 
-            console.log("The key is " + x);
+            document.getElementById("decryptionResultsDiv").style = "";
+            if(success){
+                document.getElementById("cardDecryptionText").innerText = "The key is " + x;
+            } else{
+                document.getElementById("cardDecryptionText").innerText = "No luck :c"
+            }
             /*
             while(i + 1 < Math.min(text.length, cypher.length)){
                 if(invertible.indexOf(det(M, 2)) < 0){
@@ -315,8 +320,7 @@
                 <div id="decryptionResultsDiv" class="row mt-5" style="display: none;">
                     <hr>
                     <h4 class="card-subtitle mt-2 mb-4 text-center">Results</h4>
-                    <p><b>Decryption: </b><span id="cardDecryptionText"></span></p>
-                    <p><b>Key Used: </b><span id="cardDecryptionKey"></span></p>
+                    <p><b>Description: </b><span id="cardDecryptionText"></span></p>
                 </div>
             </div>
         </div>
