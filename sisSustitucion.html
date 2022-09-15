@@ -59,8 +59,8 @@ const handleCypher = (method) => {
         let key = document.getElementById('keyEncrypt');
 
         if(key.value == ''){
-            key.placeholder = substitution.getkey();
-            key = key.placeholder;
+            key.value = substitution.getkey();
+            key = key.value;
         } else {
             key = key.value;
         }
