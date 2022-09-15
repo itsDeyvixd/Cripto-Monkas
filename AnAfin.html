@@ -24,6 +24,10 @@
                 for (let j = 0; j < vec.length; j++) {
                     sum += M[i][j] * vec[j];
                 }
+                while(sum < 0){
+                    sum += 26;
+                }
+                sum %= 26;
                 result.push(sum);
             }
 
@@ -100,7 +104,7 @@
             temp %= 26;
             const d = inverses[invertible.indexOf(temp)]; // 1/|M|
             const inv = [];
-            console.log(d);
+
             for (let i = 0; i < ord; i++) {
                 inv.push([]);
                 for (let j = 0; j < ord; j++) {
@@ -166,10 +170,40 @@
                 return 0
             }
 
-            const M = [[abc.indexOf(text[0]), 1], [abc.indexOf(text[1]), 1]];
-            const y = [abc.indexOf(cypher[0]), abc.indexOf(cypher[1])];
+            let M = [[0, 1], [0, 1]];
+            let y = [0, 0];
             const x = [0, 0];
-            let i = 1;
+
+            let success = false;
+
+            for(j = 1; j < Math.min(text.length, cypher.length); j++){
+                // M[1] = [abc.indexOf(text[j]), 1];
+                y[1] = abc.indexOf(cypher[j]);
+                for (let i = 0; i < j; i++) {
+                    M = [[abc.indexOf(text[i]), 1], [abc.indexOf(text[j]), 1]];
+                    y[0] = abc.indexOf(cypher[i]);
+                    
+                    if(invertible.indexOf(det(M, 2)) < 0){
+                        continue
+                    }
+                    let temp = matvecProd(invmat(M, 2), y);
+                    console.log(temp);
+                    if(invertible.indexOf(temp[0]) < 0){
+                        continue
+                    }
+                    x[0] = temp[0];
+                    x[1] = temp[1];
+                    success = true;
+                    break
+                }
+
+                if(success){
+                    break;
+                }
+            }
+
+            console.log("The key is " + x);
+            /*
             while(i + 1 < Math.min(text.length, cypher.length)){
                 if(invertible.indexOf(det(M, 2)) < 0){
                     i += 1
@@ -194,9 +228,7 @@
                 x[0] = temp[0];
                 x[1] = temp[1];
                 break;
-            }
-
-        console.log("The key is " + x);
+            }*/
             
         }
 
