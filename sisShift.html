@@ -38,6 +38,7 @@
                     let key = document.getElementById("keyEncrypt").value;
                     if(!(key in keys)){
                         key = shift.getkey();
+                        document.getElementById('keyEncrypt').placeholder = key;
                     }
                     key = +key; // Converts to int
                     document.getElementById("outputEncrypt").value = shift.enc(text, key);

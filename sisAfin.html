@@ -51,12 +51,13 @@ function myAffineCipher() {
             text = "ERROR: INVALID MULTIPLICATION KEY  (gcd(a,26) != 1)";
         } else {
             text += decryptAffine(tString, multiplyNum, shiftNum);
+            // console.log('Hey! I just decrypted.')
         };
     } else {
         text += "Corresponding ciphertext: ";
-        multiplyNum = modInv(multiplyNum,26);
         if(multiplyNum>=0) {
-            text+= decryptAffine(tString, multiplyNum, -shiftNum);
+            text+= encryptAffine(tString, multiplyNum, shiftNum);
+            // console.log('Hey! I just encrypted.')
         } else {
             text = "ERROR: INVALID MULTIPLICATION KEY  (gcd(a,26) != 1)";
         }
@@ -80,12 +81,12 @@ function decryptAffine(cipherText, multiply, shift) {
     for(i=0; i<cipherText.length; i++) {
         character = cipherText.charCodeAt(i);
         if(65<=character && character<=90) {
-            v = modGreater(character,65+shift,26);
+            v = modGreater(character -shift,65,26);
             v*=multDec;
             v%=26;
             newAscii = v+65;
         } else if(97<=character && character<=122) {
-            v = modGreater(character,97+shift,26);
+            v = modGreater(character -shift,97,26);
             v*=multDec;
             v%=26;
             newAscii = v+97;
@@ -96,6 +97,36 @@ function decryptAffine(cipherText, multiply, shift) {
     }
     return text;
 }
+
+function encryptAffine(cipherText, multiply, shift) {
+    if(myGCD(multiply,26) != 1) {
+        return "26 ERROR";
+    }
+
+    var text = "";
+    var character = 0;
+    var newAscii = 0;
+    var v = 0;
+    // var multDec = modInv(multiply, 26);
+    for(i=0; i<cipherText.length; i++) {
+        character = cipherText.charCodeAt(i);
+        if(65<=character && character<=90) {
+            v = multiply * modGreater(character,65,26) + shift;
+            v %=26;
+            newAscii = v+65;
+        } else if(97<=character && character<=122) {
+            v = multiply * modGreater(character,97,26) + shift;
+            // v = modGreater(character +shift,97,26);
+            v%=26;
+            newAscii = v+97;
+        } else {
+            return "6597 ERROR"
+        }
+        text+=String.fromCharCode(newAscii);
+    }
+    return text;
+}
+
 function modGreater(value, lowerBound, mod) {
     var v = (value-lowerBound)%mod;
     while(v<0) {

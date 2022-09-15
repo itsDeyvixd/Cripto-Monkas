@@ -7,6 +7,47 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+        <script>
+        
+        const loadFile = function(event, display) {
+            /*
+            Shows the image on "event" on the screen.
+            */
+	        var image = document.getElementById(display);
+            console.log(typeof(image));
+	        image.src = URL.createObjectURL(event.target.files[0]);
+            console.log(getPixelval(image, 20, 300));
+        };
+
+        const getPixelval = (img, x, y) => {
+            /*
+            Gets the array of pixels asociated with the image
+            */
+            
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0); // URL.createObjectURL(event.target.files[0])
+            console.log(img.width, img.height);
+            return ctx.getImageData(x, y, 1, 1).data.entries;
+        }
+
+        const handleCypher = () => {
+            const image = document.querySelector('#imageEncrypt');
+            image.addEventListener('change', () => {
+                const reader = new FileReader();
+
+                reader.addEventListener("load", () => {
+                    
+                });
+
+                reader.readAsDataURL(image.files[0]);
+            })
+         
+
+            
+            // getPixelval(image.value, 2, 2);
+        }
+        </script>
 	</head>
 	<body class="is-preload">
 		<div id="page-wrapper">
@@ -48,8 +89,10 @@
 				<div id="main" class="wrapper style1">
 					<div class="container">
 						<header class="major">
-							<h2>Sistema criptografico afín</h2>
-							<p>Ipsum dolor feugiat aliquam tempus sed magna lorem consequat accumsan</p>
+							<h2>Hill cryptographic system</h2>
+							<p>This system uses matrices in order to cypher
+                                pictures (see manual for a full explanation).
+                            </p>
 						</header>
 
 						<!-- Content -->
@@ -57,7 +100,7 @@
 
 <div class="container">
     <div class="row">
-        <h1 class="mt-3 text-center">Displacement Cipher</h1>
+        <h1 class="mt-3 text-center">Hill cypher</h1>
     </div>
     <div class="row">
         <div class="col card container mt-3">
@@ -67,22 +110,23 @@
                     <form id="myForm">
                         <div class="mb-3">
                             <label for="inputTextEncrypt" class="form-label">Text</label>
-                            <input type="text" class="form-control" id="inputTextEncrypt" aria-describedby="textHelp"
-                                   style="text-transform:uppercase">
-                            <div id="textHelp" class="form-text">Please introduce some text to encrypt.</div>
+                            <!--<input type="file" class="form-control" id="imageEncrypt" aria-describedby="textHelp"
+                                   style="text-transform:uppercase"> -->
+                            <div id="textHelp" class="form-text">Please introduce some picture beautiful picture.</div>
+                            <p><input type="file" class="form-control" accept="image/*" name="imageEncrypt" id="imageEncrypt" src="./images/"  onchange="loadFile(event, 'previewInput')" ></p>
+                            <p><img id="previewInput" width="200" /></p>
                         </div>
                         <div class="mb-3">
                             <label for="inputKeyEncrypt" class="form-label">Key</label>
-                            <input type="number" class="form-control" id="inputKeyEncrypt" aria-describedby="keyHelp">
-                            <div id="keyHelp" class="form-text">Please introduce some key in <span
-                                    class="math inline">ℤ<sub>26</sub></span>. If you don't, the system will
-                                automatically generate one.
+                            <input type="number" class="form-control" id="keyEncrypt" aria-describedby="keyHelp">
+                            <div id="keyHelp" class="form-text"> die
                             </div>
+                            
                         </div>
                         <div class="text-center">
 
                             <button id="submitButtonEncrypt" type="button"
-                                    class="btn btn-primary justify-content-center">Encrypt
+                                    class="btn btn-primary justify-content-center" onclick="handleCypher()">Encrypt
                             </button>
                         </div>
                     </form>
@@ -106,12 +150,12 @@
                             <label for="inputTextDecrypt" class="form-label">Text</label>
                             <input type="text" class="form-control" id="inputTextDecrypt" aria-describedby="textHelp"
                                    style="text-transform:uppercase">
-                            <div id="textHelp" class="form-text">Please introduce the text to decrypt.</div>
+                            <div id="textHelp" class="form-text">Please introduce some beautiful image.</div>
                         </div>
                         <div class="mb-3">
                             <label for="inputKeyDecrypt" class="form-label">Key</label>
                             <input type="number" class="form-control" id="inputKeyDecrypt" aria-describedby="keyHelp">
-                            <div id="keyHelp" class="form-text">Please introduce the key.</div>
+                            <div id="keyHelp" class="form-text">Die.</div>
                         </div>
                         <div class="text-center">
 

@@ -21,7 +21,7 @@
             return [0];
             }
 
-        return arrn(n-1).concat([n - 1]);
+        return arrn(n-1).push(n - 1);
         }
 
         const inv_k = (key) => {
@@ -79,11 +79,11 @@
                 let key = document.getElementById("keyEncrypt").value;
 
                 if(key == ''){
-                    var keke = permutation.getkey(random(2, 7));
-                    key.placeholder = keke
-                    key =keke
+                    key = permutation.getkey(random(2, 7));
+
                 } else {
-                    key = key.split(', ');
+                    key.trim();
+                    key = key.split(',');
                     for (let i = 0; i < key.length; i++) {
                         key[i] = (+key[i]) - 1; // converts to integers
                         
@@ -91,19 +91,21 @@
                 }
 
                 document.getElementById("outputEncrypt").value = permutation.enc(text, key);
+                key = key.map((n) => {return n + 1})
+                document.getElementById("keyEncrypt").placeholder = "Your key: " + key
 
             } else if (method == 'decrypt') {
                 let text = document.getElementById("textDecrypt").value;
                 let key = document.getElementById("keyDecrypt").value;
-                document.getElementById("outputDecrypt").value = '';
-                if(!(key in keys)){
-                    for (let i = 0; i < 26; i++) {
-                        document.getElementById("outputDecrypt").value += permutation.dec(text, i) + ', ';
-                    }
-                } else {
-                    key = +key; // Converts to int
-                    document.getElementById("outputDecrypt").value = permutation.dec(text, key);
+
+                key.trim();
+                key = key.split(',');
+                for (let i = 0; i < key.length; i++) {
+                    key[i] = (+key[i]) - 1; // converts to integers
+                        
                 }
+
+                document.getElementById("outputDecrypt").value = permutation.dec(text, key);
                 
             }
             
