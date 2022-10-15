@@ -10,16 +10,33 @@
 
 
         <script>
+const random = (min, max) => {return Math.floor(Math.random() * (max - min) + min)};
 function myAffineCipher() {
     var t = document.getElementById("cipherText");
     var tString = t.value;
 
     var multiply = document.getElementById("cipherMultiply");
     var multiplyString = multiply.value;
+
+    // Checks if there is a key and generates one if it isn't the case
+    if(!multiplyString){
+        multiplyString = 0;
+        while(myGCD(multiplyString,26)!=1){
+            multiplyString = random(0, 25);
+        }
+        multiply.value = multiplyString;
+    }
+
     var multiplyNum = parseInt(multiplyString, 10);
 
     var shift = document.getElementById("cipherShift");
     var shiftString = shift.value;
+
+    if(!shiftString){
+        shiftString = random(0, 25);
+        shift.value = shiftString;
+    }
+
     var shiftNum = parseInt(shiftString,10);
 
     var operationInputs = document.getElementsByName("cipherOperation");
